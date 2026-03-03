@@ -1,0 +1,210 @@
+Timestamp (finished),Interaction,Type,UUID,Details,Duration (s),"Pos (w,h)"
+2019-01-07T16:33:05Z,Created,Entity,6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,,0.0,"(15.10%, 71.30%)"
+2019-01-07T16:33:22Z,Named,Entity,6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0, -> Leihmedium,10.0,
+2019-01-07T16:33:35Z,Created,Attribute,6758f6ff-123b-429e-90b1-9b200a6d00c4,,0.0,"(20.83%, 52.78%)"
+2019-01-07T16:33:49Z,Named,Attribute,6758f6ff-123b-429e-90b1-9b200a6d00c4, -> Titel,7.0,
+2019-01-07T16:33:52Z,Changed Data Type,Attribute,6758f6ff-123b-429e-90b1-9b200a6d00c4,None -> String,1.0,
+2019-01-07T16:33:58Z,Moved,Attribute,6758f6ff-123b-429e-90b1-9b200a6d00c4,Delta: 6.81%,2.0,"(17.71%, 61.11%)"
+2019-01-07T16:33:58Z,Assigned,Attribute,6758f6ff-123b-429e-90b1-9b200a6d00c4,None -> 6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,0.0,
+2019-01-07T16:33:58Z,Moved,Attribute,6758f6ff-123b-429e-90b1-9b200a6d00c4,Delta: 0.00%,0.0,"(15.36%, 67.59%)"
+2019-01-07T16:33:58Z,Moved,Entity,6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,Delta: 0.00%,0.0,"(15.10%, 71.30%)"
+2019-01-07T16:34:00Z,Created,Attribute,16fa493d-312f-4e62-a857-9c371178f8a0,,0.0,"(19.79%, 54.63%)"
+2019-01-07T16:34:20Z,Named,Attribute,16fa493d-312f-4e62-a857-9c371178f8a0, -> Erscheinungsjahr,9.0,
+2019-01-07T16:34:26Z,Changed Data Type,Attribute,16fa493d-312f-4e62-a857-9c371178f8a0,None -> Date,2.0,
+2019-01-07T16:34:37Z,Moved,Attribute,16fa493d-312f-4e62-a857-9c371178f8a0,Delta: 0.00%,1.0,"(15.62%, 64.81%)"
+2019-01-07T16:34:39Z,Assigned,Attribute,16fa493d-312f-4e62-a857-9c371178f8a0,None -> 6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,0.0,
+2019-01-07T16:34:39Z,Moved,Attribute,6758f6ff-123b-429e-90b1-9b200a6d00c4,Delta: 0.00%,0.0,"(15.36%, 67.59%)"
+2019-01-07T16:34:39Z,Moved,Attribute,16fa493d-312f-4e62-a857-9c371178f8a0,Delta: 0.00%,0.0,"(15.36%, 65.28%)"
+2019-01-07T16:34:51Z,Created,Attribute,9238e1a6-4f18-44c7-aeb6-946429d1d25c,,0.0,"(19.27%, 52.78%)"
+2019-01-07T16:35:04Z,Named,Attribute,9238e1a6-4f18-44c7-aeb6-946429d1d25c, -> ISBN,6.0,
+2019-01-07T16:35:23Z,Changed Data Type,Attribute,9238e1a6-4f18-44c7-aeb6-946429d1d25c,None -> Integer,5.0,
+2019-01-07T16:35:27Z,Moved,Attribute,9238e1a6-4f18-44c7-aeb6-946429d1d25c,Delta: 2.83%,1.0,"(15.62%, 60.19%)"
+2019-01-07T16:35:27Z,Assigned,Attribute,9238e1a6-4f18-44c7-aeb6-946429d1d25c,None -> 6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,0.0,
+2019-01-07T16:35:30Z,Moved,Entity,6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,Delta: 24.08%,3.0,"(15.10%, 71.30%)"
+2019-01-07T16:35:30Z,Moved,Attribute,6758f6ff-123b-429e-90b1-9b200a6d00c4,Delta: 6.23%,1.0,"(29.43%, 78.70%)"
+2019-01-07T16:35:30Z,Moved,Attribute,16fa493d-312f-4e62-a857-9c371178f8a0,Delta: 5.89%,1.0,"(29.43%, 76.39%)"
+2019-01-07T16:35:30Z,Moved,Attribute,9238e1a6-4f18-44c7-aeb6-946429d1d25c,Delta: 23.69%,3.0,"(15.36%, 62.96%)"
+2019-01-07T16:35:39Z,Created,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,,0.0,"(39.58%, 55.56%)"
+2019-01-07T16:35:47Z,Named,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c, -> Buc,1.0,
+2019-01-07T16:35:55Z,Moved,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,Delta: 0.00%,0.0,"(35.42%, 66.67%)"
+2019-01-07T16:35:55Z,Renamed,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,Buc -> Buch,0.0,
+2019-01-07T16:35:57Z,Moved,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,Delta: 13.89%,2.0,"(33.85%, 73.15%)"
+2019-01-07T16:36:01Z,Created,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,,0.0,"(38.54%, 37.04%)"
+2019-01-07T16:36:16Z,Named,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617, -> <Name>,0.0,
+2019-01-07T16:36:33Z,Named,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,<Name> -> Signatur,3.0,
+2019-01-07T16:36:41Z,Changed Data Type,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,None -> Strin,4.0,
+2019-01-07T16:36:47Z,Moved,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Delta: 0.00%,0.0,"(33.85%, 51.85%)"
+2019-01-07T16:36:47Z,Changed Data Type,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Strin -> String,0.0,
+2019-01-07T16:36:48Z,Moved,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Delta: 1.39%,1.0,"(34.90%, 54.63%)"
+2019-01-07T16:36:51Z,Assigned,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,None -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:36:51Z,Moved,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Delta: 0.00%,0.0,"(34.11%, 55.56%)"
+2019-01-07T16:36:51Z,Moved,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,Delta: 0.00%,0.0,"(33.85%, 59.26%)"
+2019-01-07T16:36:59Z,Created,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,,0.0,"(35.94%, 38.89%)"
+2019-01-07T16:37:00Z,Named,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8, -> <Name>,0.0,
+2019-01-07T16:37:01Z,Created,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,,0.0,"(40.62%, 30.56%)"
+2019-01-07T16:37:03Z,Named,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99, -> <Name>,0.0,
+2019-01-07T16:37:16Z,Named,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,<Name> -> Anschaffung,7.0,
+2019-01-07T16:37:19Z,Changed Data Type,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,None -> Date,1.0,
+2019-01-07T16:37:32Z,Named,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,<Name> -> Preis,2.0,
+2019-01-07T16:37:38Z,Changed Data Type,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,None -> Decim,1.0,
+2019-01-07T16:37:44Z,Moved,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,Delta: 13.06%,3.0,"(35.94%, 39.81%)"
+2019-01-07T16:37:45Z,Assigned,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,None -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:37:45Z,Moved,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,Delta: 0.00%,0.0,"(34.11%, 53.24%)"
+2019-01-07T16:37:45Z,Moved,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Delta: 0.00%,0.0,"(34.11%, 55.56%)"
+2019-01-07T16:37:46Z,Moved,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,Delta: 0.00%,0.0,"(35.94%, 46.30%)"
+2019-01-07T16:37:46Z,Changed Data Type,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,Decim -> Decimal,0.0,
+2019-01-07T16:37:58Z,Moved,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,Delta: 3.93%,12.0,"(35.42%, 47.22%)"
+2019-01-07T16:37:58Z,Assigned,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,None -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:37:58Z,Moved,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,Delta: 0.00%,0.0,"(33.85%, 59.26%)"
+2019-01-07T16:37:58Z,Moved,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,Delta: 0.00%,0.0,"(33.85%, 50.93%)"
+2019-01-07T16:38:11Z,Created,Entity,f8dfe296-375e-4e9b-b302-c8055669b027,,0.0,"(10.94%, 51.85%)"
+2019-01-07T16:38:22Z,Named,Entity,f8dfe296-375e-4e9b-b302-c8055669b027, -> Nut,4.0,
+2019-01-07T16:38:30Z,Created,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,,0.0,"(14.06%, 33.33%)"
+2019-01-07T16:38:31Z,Named,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73, -> <Name>,0.0,
+2019-01-07T16:38:32Z,Created,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,,0.0,"(18.75%, 25.00%)"
+2019-01-07T16:38:33Z,Named,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed, -> <Name>,0.0,
+2019-01-07T16:38:34Z,Created,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,,0.0,"(33.33%, 28.70%)"
+2019-01-07T16:38:36Z,Named,Attribute,6110c820-d02c-495f-b43c-da46a04a134e, -> <Name>,0.0,
+2019-01-07T16:38:41Z,Named,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,<Name> -> Vorname,1.0,
+2019-01-07T16:38:45Z,Changed Data Type,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,None -> String,1.0,
+2019-01-07T16:38:48Z,Moved,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,Delta: 0.00%,1.0,"(11.46%, 48.15%)"
+2019-01-07T16:38:48Z,Assigned,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,None -> f8dfe296-375e-4e9b-b302-c8055669b027,0.0,
+2019-01-07T16:38:48Z,Renamed,Entity,f8dfe296-375e-4e9b-b302-c8055669b027,Nut -> Nutzer,0.0,
+2019-01-07T16:38:48Z,Moved,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,Delta: 0.00%,0.0,"(11.20%, 48.15%)"
+2019-01-07T16:39:04Z,Named,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,<Name> -> Nachname,2.0,
+2019-01-07T16:39:11Z,Changed Data Type,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,None -> String,3.0,
+2019-01-07T16:39:14Z,Moved,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,Delta: 4.89%,1.0,"(13.02%, 40.74%)"
+2019-01-07T16:39:14Z,Assigned,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,None -> f8dfe296-375e-4e9b-b302-c8055669b027,0.0,
+2019-01-07T16:39:14Z,Moved,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,Delta: 0.00%,0.0,"(11.20%, 45.83%)"
+2019-01-07T16:39:30Z,Named,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,<Name> -> Geburtdatum,6.0,
+2019-01-07T16:39:34Z,Changed Data Type,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,None -> Da,0.0,
+2019-01-07T16:39:39Z,Moved,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,Delta: 0.00%,0.0,"(16.67%, 41.67%)"
+2019-01-07T16:39:39Z,Changed Data Type,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,Da -> Date,0.0,
+2019-01-07T16:39:40Z,Moved,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,Delta: 0.78%,1.0,"(11.98%, 43.52%)"
+2019-01-07T16:39:40Z,Assigned,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,None -> f8dfe296-375e-4e9b-b302-c8055669b027,0.0,
+2019-01-07T16:39:40Z,Moved,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,Delta: 0.00%,0.0,"(11.46%, 43.52%)"
+2019-01-07T16:39:40Z,Moved,Entity,f8dfe296-375e-4e9b-b302-c8055669b027,Delta: 0.00%,0.0,"(10.94%, 51.85%)"
+2019-01-07T16:39:45Z,Created,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,,0.0,"(65.62%, 50.93%)"
+2019-01-07T16:39:54Z,Named,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce, -> Ausleihe,2.0,
+2019-01-07T16:39:57Z,Created,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,,0.0,"(69.27%, 22.22%)"
+2019-01-07T16:39:59Z,Named,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280, -> <Name>,0.0,
+2019-01-07T16:40:00Z,Created,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,,0.0,"(67.71%, 26.85%)"
+2019-01-07T16:40:01Z,Named,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06, -> <Name>,0.0,
+2019-01-07T16:40:02Z,Moved,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,Delta: 3.74%,1.0,"(67.71%, 27.78%)"
+2019-01-07T16:40:14Z,Named,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,<Name> -> Ausleihdatum,7.0,
+2019-01-07T16:40:15Z,Changed Data Type,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,None -> Date,1.0,
+2019-01-07T16:40:20Z,Moved,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,Delta: 2.83%,1.0,"(66.67%, 44.44%)"
+2019-01-07T16:40:20Z,Assigned,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,None -> 33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,0.0,
+2019-01-07T16:40:20Z,Moved,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,Delta: 0.00%,0.0,"(65.89%, 47.22%)"
+2019-01-07T16:40:25Z,Moved,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,Delta: 0.00%,3.0,"(67.71%, 34.26%)"
+2019-01-07T16:40:34Z,Named,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,<Name> -> Fälligkeitsdatum,9.0,
+2019-01-07T16:40:37Z,Changed Data Type,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,None -> Date,1.0,
+2019-01-07T16:40:42Z,Moved,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,Delta: 0.52%,1.0,"(65.62%, 44.44%)"
+2019-01-07T16:40:43Z,Assigned,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,None -> 33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,0.0,
+2019-01-07T16:40:45Z,Moved,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,Delta: 1.39%,0.0,"(61.46%, 57.41%)"
+2019-01-07T16:40:45Z,Moved,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,Delta: 1.39%,0.0,"(61.72%, 53.70%)"
+2019-01-07T16:40:45Z,Moved,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,Delta: 2.97%,2.0,"(65.89%, 44.91%)"
+2019-01-07T16:40:50Z,Moved,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,Delta: 5.58%,3.0,"(11.20%, 47.69%)"
+2019-01-07T16:40:50Z,Moved,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,Delta: 5.58%,3.0,"(11.20%, 45.37%)"
+2019-01-07T16:40:50Z,Moved,Entity,f8dfe296-375e-4e9b-b302-c8055669b027,Delta: 4.66%,3.0,"(10.94%, 54.63%)"
+2019-01-07T16:40:50Z,Moved,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,Delta: 4.66%,3.0,"(11.20%, 50.93%)"
+2019-01-07T16:41:05Z,Created,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0,,0.0,"(40.10%, 67.59%)"
+2019-01-07T16:41:06Z,Moved,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0,Delta: 5.45%,0.0,"(39.58%, 68.52%)"
+2019-01-07T16:41:31Z,Moved,Entity,6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,Delta: 0.00%,0.0,"(33.85%, 88.89%)"
+2019-01-07T16:41:33Z,Renamed,Entity,6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,Leihmedium -> Leihmedien,2.0,
+2019-01-07T16:41:44Z,Named,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0, -> enthält,4.0,
+2019-01-07T16:41:46Z,Moved,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0,Delta: 0.93%,0.0,"(34.90%, 74.07%)"
+2019-01-07T16:41:59Z,Renamed,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0,enthält -> bestehen,2.0,
+2019-01-07T16:42:11Z,Created,Link,c4f64b18-63b9-45fb-b9ba-af116f62062c,,0.0,
+2019-01-07T16:42:12Z,Connected,Link,c4f64b18-63b9-45fb-b9ba-af116f62062c,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:42:12Z,Disconnected,Link,c4f64b18-63b9-45fb-b9ba-af116f62062c,Lost connection,0.0,
+2019-01-07T16:42:14Z,Connected,Link,c4f64b18-63b9-45fb-b9ba-af116f62062c,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:42:15Z,Created,Link,1e1ad39c-af55-46ed-91a7-acd39102a68a,,0.0,
+2019-01-07T16:42:18Z,Connected,Link,1e1ad39c-af55-46ed-91a7-acd39102a68a,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0 -> 6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,0.0,
+2019-01-07T16:42:25Z,Moved,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,Delta: 49.36%,3.0,"(61.20%, 54.63%)"
+2019-01-07T16:42:25Z,Moved,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,Delta: 48.37%,3.0,"(61.20%, 52.31%)"
+2019-01-07T16:42:25Z,Moved,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,Delta: 48.37%,3.0,"(60.94%, 58.33%)"
+2019-01-07T16:42:40Z,Moved,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,Delta: 2.28%,1.0,"(9.11%, 50.93%)"
+2019-01-07T16:42:40Z,Moved,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,Delta: 2.28%,1.0,"(9.11%, 53.24%)"
+2019-01-07T16:42:40Z,Moved,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,Delta: 1.82%,1.0,"(8.59%, 55.56%)"
+2019-01-07T16:42:40Z,Moved,Entity,f8dfe296-375e-4e9b-b302-c8055669b027,Delta: 1.82%,1.0,"(8.33%, 59.26%)"
+2019-01-07T16:42:47Z,Created,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1,,0.0,"(26.56%, 51.85%)"
+2019-01-07T16:42:51Z,Moved,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1,Delta: 1.92%,3.0,"(22.40%, 55.56%)"
+2019-01-07T16:42:57Z,Named,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1, -> lei,0.0,
+2019-01-07T16:43:00Z,Created,Link,31bda48c-92cf-4c59-b1ec-ad70562f0966,,0.0,
+2019-01-07T16:43:03Z,Connected,Link,31bda48c-92cf-4c59-b1ec-ad70562f0966,95ab7c24-fd20-467f-ac8f-2cf153ec02e1 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:43:04Z,Renamed,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1,lei -> leihe,0.0,
+2019-01-07T16:43:05Z,Created,Link,ab9f8bc2-331a-4fc8-85a4-56a8b05fd45c,,0.0,
+2019-01-07T16:43:09Z,Connected,Link,ab9f8bc2-331a-4fc8-85a4-56a8b05fd45c,95ab7c24-fd20-467f-ac8f-2cf153ec02e1 -> f8dfe296-375e-4e9b-b302-c8055669b027,0.0,
+2019-01-07T16:44:06Z,Moved,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,Delta: 2.28%,2.0,"(28.65%, 27.78%)"
+2019-01-07T16:44:06Z,Moved,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,Delta: 1.06%,2.0,"(28.39%, 24.07%)"
+2019-01-07T16:44:06Z,Moved,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,Delta: 2.28%,2.0,"(28.39%, 21.76%)"
+2019-01-07T16:44:16Z,Created,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7,,0.0,"(34.90%, 37.96%)"
+2019-01-07T16:44:25Z,Named,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7, -> Status,2.0,
+2019-01-07T16:44:28Z,Moved,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7,Delta: 1.82%,1.0,"(34.38%, 38.89%)"
+2019-01-07T16:44:31Z,Created,Link,61417f55-2944-456d-905e-aca41a43ddc7,,0.0,
+2019-01-07T16:44:34Z,Connection aborted,Link,61417f55-2944-456d-905e-aca41a43ddc7,,0.0,
+2019-01-07T16:44:37Z,Created,Link,4a18586e-362c-41a3-a3fe-473d53eba951,,0.0,
+2019-01-07T16:44:40Z,Connected,Link,4a18586e-362c-41a3-a3fe-473d53eba951,ad54b459-2c67-4076-a408-e158126bf7f7 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:44:42Z,Moved,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7,Delta: 0.00%,0.0,"(32.29%, 41.67%)"
+2019-01-07T16:45:11Z,Moved,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,Delta: 0.00%,0.0,"(24.22%, 23.61%)"
+2019-01-07T16:45:11Z,Moved,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,Delta: 0.00%,0.0,"(23.96%, 29.63%)"
+2019-01-07T16:45:11Z,Moved,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,Delta: 0.00%,0.0,"(24.22%, 25.93%)"
+2019-01-07T16:45:17Z,Moved,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,Delta: 0.00%,0.0,"(24.22%, 25.93%)"
+2019-01-07T16:45:17Z,Unassigned,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce -> None,0.0,
+2019-01-07T16:45:17Z,Deleted,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,,0.0,
+2019-01-07T16:45:17Z,Deleted,Attribute,83da95b6-e85a-47e2-b881-3daaabb85280,,0.0,
+2019-01-07T16:45:17Z,Deleted,Attribute,e24c0fc7-1d77-4cde-bc88-3709c5770a06,,0.0,
+2019-01-07T16:45:20Z,Deleted,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7,,0.0,
+2019-01-07T16:45:20Z,Deleted,Link,4a18586e-362c-41a3-a3fe-473d53eba951,,0.0,
+2019-01-07T16:45:25Z,Created,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,,0.0,"(38.54%, 33.33%)"
+2019-01-07T16:45:46Z,Named,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52, -> Ausleihdatum,10.0,
+2019-01-07T16:45:49Z,Changed Data Type,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,None -> Date,1.0,
+2019-01-07T16:45:53Z,Moved,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,Delta: 12.63%,1.0,"(35.94%, 36.11%)"
+2019-01-07T16:45:53Z,Assigned,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,None -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:45:53Z,Moved,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,Delta: 0.00%,0.0,"(34.38%, 48.15%)"
+2019-01-07T16:45:53Z,Unassigned,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,fad9a42b-8d78-4c5a-af5e-071ebabf923c -> None,0.0,
+2019-01-07T16:45:53Z,Moved,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,Delta: 0.52%,0.0,"(33.85%, 48.15%)"
+2019-01-07T16:45:53Z,Moved,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,Delta: 0.00%,0.0,"(34.11%, 53.24%)"
+2019-01-07T16:45:53Z,Moved,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Delta: 0.00%,0.0,"(34.11%, 55.56%)"
+2019-01-07T16:45:53Z,Assigned,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,None -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:45:53Z,Moved,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,Delta: 0.00%,0.0,"(33.85%, 59.26%)"
+2019-01-07T16:45:56Z,Created,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,,0.0,"(39.06%, 35.19%)"
+2019-01-07T16:45:58Z,Named,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9, -> <Name>,0.0,
+2019-01-07T16:46:22Z,Named,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,<Name> -> Fälligkeitsdatum,5.0,
+2019-01-07T16:46:24Z,Changed Data Type,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,None -> Dat,1.0,
+2019-01-07T16:46:26Z,Moved,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,Delta: 0.00%,0.0,"(34.90%, 40.74%)"
+2019-01-07T16:46:26Z,Changed Data Type,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,Dat -> Date,0.0,
+2019-01-07T16:46:29Z,Moved,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,Delta: 2.79%,3.0,"(34.38%, 43.52%)"
+2019-01-07T16:46:29Z,Assigned,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,None -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0.0,
+2019-01-07T16:46:29Z,Moved,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,Delta: 0.00%,0.0,"(34.38%, 46.30%)"
+2019-01-07T16:46:29Z,Moved,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,Delta: 0.00%,0.0,"(34.11%, 53.24%)"
+2019-01-07T16:46:29Z,Moved,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Delta: 0.00%,0.0,"(34.11%, 55.56%)"
+2019-01-07T16:46:34Z,Moved,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,Delta: 0.52%,1.0,"(7.03%, 53.70%)"
+2019-01-07T16:46:34Z,Moved,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,Delta: 1.04%,1.0,"(7.03%, 49.07%)"
+2019-01-07T16:46:34Z,Moved,Entity,f8dfe296-375e-4e9b-b302-c8055669b027,Delta: 0.52%,1.0,"(6.77%, 57.41%)"
+2019-01-07T16:46:34Z,Moved,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,Delta: 0.52%,1.0,"(7.03%, 51.39%)"
+2019-01-07T16:46:37Z,Moved,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1,Delta: 1.04%,1.0,"(21.88%, 56.48%)"
+2019-01-07T16:46:39Z,Moved,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,Delta: 1.06%,0.0,"(33.85%, 60.19%)"
+2019-01-07T16:46:39Z,Moved,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,Delta: 0.93%,0.0,"(34.11%, 47.22%)"
+2019-01-07T16:46:39Z,Moved,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,Delta: 1.06%,0.0,"(34.11%, 49.54%)"
+2019-01-07T16:46:39Z,Moved,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,Delta: 0.93%,0.0,"(34.11%, 51.85%)"
+2019-01-07T16:46:39Z,Moved,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,Delta: 1.06%,0.0,"(34.11%, 54.17%)"
+2019-01-07T16:46:39Z,Moved,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Delta: 1.06%,0.0,"(34.11%, 56.48%)"
+2019-01-07T16:47:13Z,Defined Cardinality / Changed Cardinality,Link,1e1ad39c-af55-46ed-91a7-acd39102a68a," -> 1,*",4.0,
+2019-01-07T16:47:32Z,Moved,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0,Delta: 0.00%,2.0,"(34.90%, 71.30%)"
+2019-01-07T16:47:36Z,Moved,Entity,fad9a42b-8d78-4c5a-af5e-071ebabf923c,Delta: 3.85%,1.0,"(34.38%, 54.63%)"
+2019-01-07T16:47:36Z,Moved,Attribute,ac39f76b-c61b-420d-93f8-7269f974a617,Delta: 4.75%,1.0,"(34.64%, 51.85%)"
+2019-01-07T16:47:36Z,Moved,Attribute,80c0396e-9db2-425a-847d-9fa1ce4e54f8,Delta: 3.85%,1.0,"(34.64%, 49.54%)"
+2019-01-07T16:47:36Z,Moved,Attribute,6187fce7-d863-4bd4-8dc0-94d2101f8a99,Delta: 4.75%,1.0,"(34.64%, 47.22%)"
+2019-01-07T16:47:36Z,Moved,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,Delta: 3.85%,1.0,"(34.64%, 44.91%)"
+2019-01-07T16:47:36Z,Moved,Attribute,ff5c100d-8016-49dc-8492-da837f25f0c9,Delta: 3.85%,1.0,"(34.64%, 42.59%)"
+2019-01-07T16:47:40Z,Moved,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1,Delta: 1.85%,1.0,"(20.31%, 46.30%)"
+2019-01-07T16:47:43Z,Moved,Entity,f8dfe296-375e-4e9b-b302-c8055669b027,Delta: 5.56%,1.0,"(4.17%, 53.70%)"
+2019-01-07T16:47:43Z,Moved,Attribute,5ece26f1-bdf1-4e9e-989d-138ba3758f73,Delta: 6.50%,1.0,"(4.95%, 50.93%)"
+2019-01-07T16:47:43Z,Moved,Attribute,56883a3e-826f-4427-90e9-7e791ecab7ed,Delta: 4.63%,1.0,"(4.43%, 47.69%)"
+2019-01-07T16:47:43Z,Moved,Attribute,6110c820-d02c-495f-b43c-da46a04a134e,Delta: 3.74%,1.0,"(4.95%, 46.30%)"
+2019-01-07T16:48:01Z,Defined Cardinality / Changed Cardinality,Link,c4f64b18-63b9-45fb-b9ba-af116f62062c," -> 1,1",2.0,
+2019-01-07T16:48:23Z,Defined Cardinality / Changed Cardinality,Link,ab9f8bc2-331a-4fc8-85a4-56a8b05fd45c," -> ,*",0.0,
+2019-01-07T16:48:31Z,Defined Cardinality / Changed Cardinality,Link,ab9f8bc2-331a-4fc8-85a4-56a8b05fd45c,",* -> 1,*",0.0,
+2019-01-07T16:48:46Z,Defined Cardinality / Changed Cardinality,Link,31bda48c-92cf-4c59-b1ec-ad70562f0966," -> 1,1",3.0,

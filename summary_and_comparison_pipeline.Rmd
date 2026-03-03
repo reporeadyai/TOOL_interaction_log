@@ -1,0 +1,449 @@
+---
+title: "Summary and Comparison Pipeline"
+author: "Marco Stock"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    code_folding: show
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = TRUE, warning = TRUE)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+```
+
+This notebook runs the full pipeline in one place:
+
+1. Create summary CSVs (`counts` + `mean duration`) for:
+   - `output`
+   - `gemini/fast`
+   - `gemini/thinking`
+   - `gemini/pro`
+2. Compute all comparison CSVs from those summaries.
+
+## Configuration
+
+```{r config, class.source="fold-hide"}
+base_dir <- "."
+
+folders_to_summarize <- c(
+  "output",
+  "gemini/fast",
+  "gemini/thinking",
+  "gemini/pro"
+)
+
+summary_script <- file.path(base_dir, "summarize_interaction_logs.R")
+comparison_output_dir <- file.path(base_dir, "comparison")
+```
+
+## Functions
+
+```{r functions, class.source="fold-hide"}
+summarize_interaction_logs <- function(input_dir, output_dir = input_dir) {
+  if (!dir.exists(input_dir)) {
+    stop(sprintf("Input directory not found: %s", input_dir))
+  }
+  if (!dir.exists(output_dir)) {
+    dir.create(output_dir, recursive = TRUE)
+  }
+
+  files <- list.files(input_dir, pattern = "^interaction_log_.*\\.csv$", full.names = TRUE)
+  if (length(files) == 0) {
+    stop(sprintf("No files matching 'interaction_log_*.csv' found in %s", input_dir))
+  }
+
+  extract_participant <- function(path) {
+    file <- basename(path)
+    str_match(file, "^interaction_log_(.*)\\.csv$")[, 2]
+  }
+
+  all_logs <- map_dfr(files, function(path) {
+    pid <- extract_participant(path)
+    dat <- read_csv(path, show_col_types = FALSE)
+    dat %>% mutate(Participant = pid)
+  })
+
+  if (!("Interaction" %in% names(all_logs))) {
+    stop("Column 'Interaction' not found in interaction logs.")
+  }
+  if (!("Duration (s)" %in% names(all_logs))) {
+    stop("Column 'Duration (s)' not found in interaction logs.")
+  }
+  if (!("Details" %in% names(all_logs))) {
+    all_logs <- all_logs %>% mutate(Details = NA_character_)
+  }
+
+  # Ensure cardinality interactions are always separated into two labels.
+  all_logs <- all_logs %>%
+    mutate(
+      Interaction = case_when(
+        .data$Interaction == "Defined Cardinality / Changed Cardinality" &
+          !is.na(.data$Details) &
+          str_detect(.data$Details, "->") ~ "Changed Cardinality",
+        .data$Interaction == "Defined Cardinality / Changed Cardinality" ~ "Defined Cardinality",
+        TRUE ~ .data$Interaction
+      )
+    )
+
+  count_table <- all_logs %>%
+    count(.data$Interaction, .data$Participant, name = "Count") %>%
+    pivot_wider(
+      names_from = "Participant",
+      values_from = "Count",
+      values_fill = 0
+    ) %>%
+    arrange(.data$Interaction)
+
+  mean_duration_table <- all_logs %>%
+    mutate(`Duration (s)` = as.numeric(.data$`Duration (s)`)) %>%
+    group_by(.data$Interaction, .data$Participant) %>%
+    summarise(`Mean Duration (s)` = mean(.data$`Duration (s)`, na.rm = TRUE), .groups = "drop") %>%
+    pivot_wider(
+      names_from = "Participant",
+      values_from = "Mean Duration (s)"
+    ) %>%
+    arrange(.data$Interaction)
+
+  counts_out <- file.path(output_dir, "summary_action_counts_by_participant.csv")
+  means_out <- file.path(output_dir, "summary_mean_duration_by_participant.csv")
+  write_csv(count_table, counts_out)
+  write_csv(mean_duration_table, means_out)
+
+  message("Saved: ", counts_out)
+  message("Saved: ", means_out)
+}
+
+create_comparison_tables <- function(base_dir = ".", out_dir = file.path(base_dir, "comparison")) {
+  if (!dir.exists(out_dir)) {
+    dir.create(out_dir, recursive = TRUE)
+  }
+
+  path_alg_counts <- file.path(base_dir, "output", "summary_action_counts_by_participant.csv")
+  path_alg_durs <- file.path(base_dir, "output", "summary_mean_duration_by_participant.csv")
+  path_flash_counts <- file.path(base_dir, "gemini", "fast", "summary_action_counts_by_participant.csv")
+  path_flash_durs <- file.path(base_dir, "gemini", "fast", "summary_mean_duration_by_participant.csv")
+  path_think_counts <- file.path(base_dir, "gemini", "thinking", "summary_action_counts_by_participant.csv")
+  path_think_durs <- file.path(base_dir, "gemini", "thinking", "summary_mean_duration_by_participant.csv")
+  path_pro_counts <- file.path(base_dir, "gemini", "pro", "summary_action_counts_by_participant.csv")
+  path_pro_durs <- file.path(base_dir, "gemini", "pro", "summary_mean_duration_by_participant.csv")
+
+  required_paths <- c(
+    path_alg_counts, path_alg_durs,
+    path_flash_counts, path_flash_durs,
+    path_think_counts, path_think_durs,
+    path_pro_counts, path_pro_durs
+  )
+  missing_paths <- required_paths[!file.exists(required_paths)]
+  if (length(missing_paths) > 0) {
+    stop(
+      paste0(
+        "Missing required summary files:\n",
+        paste0(" - ", missing_paths, collapse = "\n")
+      )
+    )
+  }
+
+  read_count_summary <- function(path) read_csv(path, show_col_types = FALSE)
+  read_duration_summary <- function(path) read_csv(path, show_col_types = FALSE)
+  participant_cols <- function(df) setdiff(names(df), "Interaction")
+
+  sum_by_participant <- function(df) {
+    cols <- participant_cols(df)
+    out <- colSums(df[, cols, drop = FALSE], na.rm = TRUE)
+    tibble(Participant = names(out), N = as.numeric(out))
+  }
+
+  sum_by_interaction <- function(df) {
+    cols <- participant_cols(df)
+    df %>%
+      group_by(.data$Interaction) %>%
+      summarise(N = sum(across(all_of(cols)), na.rm = TRUE), .groups = "drop")
+  }
+
+  format_ratio <- function(num, den) ifelse(den == 0, NA_real_, round(num / den, 2))
+  format_delta <- function(x) ifelse(x > 0, paste0("+", x), as.character(x))
+  format_one_decimal_or_dash <- function(x) ifelse(is.na(x), "--", sprintf("%.1f", x))
+
+  get_mean_across_participants <- function(df, interaction) {
+    pcols <- participant_cols(df)
+    row <- df %>% filter(.data$Interaction == interaction)
+    if (nrow(row) == 0 || length(pcols) == 0) return(NA_real_)
+    vals <- as.numeric(unlist(row[1, pcols, drop = TRUE]))
+    mean(vals, na.rm = TRUE)
+  }
+
+  counts_alg <- read_count_summary(path_alg_counts)
+  counts_flash <- read_count_summary(path_flash_counts)
+  counts_think <- read_count_summary(path_think_counts)
+  counts_pro <- read_count_summary(path_pro_counts)
+  durs_alg <- read_duration_summary(path_alg_durs)
+  durs_flash <- read_duration_summary(path_flash_durs)
+  durs_think <- read_duration_summary(path_think_durs)
+  durs_pro <- read_duration_summary(path_pro_durs)
+
+  # Table 1
+  tot_alg <- sum_by_participant(counts_alg)
+  tot_flash <- sum_by_participant(counts_flash) %>% transmute(Participant = .data$Participant, N_Flash = .data$N)
+  tot_think <- sum_by_participant(counts_think) %>% transmute(Participant = .data$Participant, N_Think = .data$N)
+  tot_pro <- sum_by_participant(counts_pro) %>% transmute(Participant = .data$Participant, N_Pro = .data$N)
+
+  table_total_counts <- tot_alg %>%
+    transmute(Proband = .data$Participant, N_alg = .data$N) %>%
+    left_join(tot_flash, by = c("Proband" = "Participant")) %>%
+    left_join(tot_think, by = c("Proband" = "Participant")) %>%
+    left_join(tot_pro, by = c("Proband" = "Participant")) %>%
+    mutate(
+      r_Flash = format_ratio(.data$N_Flash, .data$N_alg),
+      r_Think = format_ratio(.data$N_Think, .data$N_alg),
+      r_Pro = format_ratio(.data$N_Pro, .data$N_alg)
+    ) %>%
+    arrange(.data$Proband)
+
+  sum_row_total <- table_total_counts %>%
+    summarise(
+      Proband = "Summe",
+      N_alg = sum(.data$N_alg, na.rm = TRUE),
+      N_Flash = sum(.data$N_Flash, na.rm = TRUE),
+      r_Flash = round(sum(.data$N_Flash, na.rm = TRUE) / sum(.data$N_alg, na.rm = TRUE), 2),
+      N_Think = sum(.data$N_Think, na.rm = TRUE),
+      r_Think = round(sum(.data$N_Think, na.rm = TRUE) / sum(.data$N_alg, na.rm = TRUE), 2),
+      N_Pro = sum(.data$N_Pro, na.rm = TRUE),
+      r_Pro = round(sum(.data$N_Pro, na.rm = TRUE) / sum(.data$N_alg, na.rm = TRUE), 2)
+    )
+  table_total_counts <- bind_rows(table_total_counts, sum_row_total)
+
+  # Table 2
+  get_total_and_move <- function(df) {
+    ints <- sum_by_interaction(df)
+    total <- sum(ints$N, na.rm = TRUE)
+    move <- ints %>% filter(.data$Interaction == "Moved") %>% pull(.data$N)
+    move <- ifelse(length(move) == 0, 0, move)
+    non_move <- total - move
+    pct_move <- ifelse(total == 0, NA_real_, round(move / total * 100, 1))
+    tibble(Total = total, Non_Move = non_move, Move = move, Pct_Move = pct_move)
+  }
+
+  nm_alg <- get_total_and_move(counts_alg) %>% mutate(Quelle = "Algorithmus")
+  nm_flash <- get_total_and_move(counts_flash) %>% mutate(Quelle = "Flash")
+  nm_think <- get_total_and_move(counts_think) %>% mutate(Quelle = "Thinking")
+  nm_pro <- get_total_and_move(counts_pro) %>% mutate(Quelle = "Pro")
+
+  table_non_move <- bind_rows(nm_alg, nm_flash, nm_think, nm_pro) %>%
+    transmute(
+      Quelle = .data$Quelle,
+      Gesamt = .data$Total,
+      Nicht_Move = .data$Non_Move,
+      Move = .data$Move,
+      `% Move` = .data$Pct_Move
+    ) %>%
+    mutate(`% Move` = paste0(.data$`% Move`, "%"))
+
+  # Table 3
+  interaction_order <- c(
+    "Assigned", "Created", "Connected", "Disconnected", "Deleted", "Named", "Renamed", "Moved",
+    "Changed Data Type", "Defined Cardinality", "Changed Cardinality",
+    "Unassigned", "Re-connected", "Re-assigned", "Connection aborted"
+  )
+  to_named_vector <- function(df) {
+    out <- sum_by_interaction(df)
+    setNames(out$N, out$Interaction)
+  }
+  vec_alg <- to_named_vector(counts_alg)
+  vec_flash <- to_named_vector(counts_flash)
+  vec_think <- to_named_vector(counts_think)
+  vec_pro <- to_named_vector(counts_pro)
+  get_n <- function(v, k) ifelse(is.na(v[k]), 0, as.numeric(v[k]))
+
+  table_deltas <- tibble(Interaction = interaction_order) %>%
+    mutate(
+      N_alg = sapply(.data$Interaction, function(k) get_n(vec_alg, k)),
+      N_Flash = sapply(.data$Interaction, function(k) get_n(vec_flash, k)),
+      Delta_Flash = .data$N_Flash - .data$N_alg,
+      N_Think = sapply(.data$Interaction, function(k) get_n(vec_think, k)),
+      Delta_Think = .data$N_Think - .data$N_alg,
+      N_Pro = sapply(.data$Interaction, function(k) get_n(vec_pro, k)),
+      Delta_Pro = .data$N_Pro - .data$N_alg
+    ) %>%
+    mutate(
+      Delta_Flash = format_delta(.data$Delta_Flash),
+      Delta_Think = format_delta(.data$Delta_Think),
+      Delta_Pro = format_delta(.data$Delta_Pro)
+    )
+
+  sum_deltas <- tibble(
+    Interaction = "Summe",
+    N_alg = sum(as.numeric(table_deltas$N_alg), na.rm = TRUE),
+    N_Flash = sum(as.numeric(table_deltas$N_Flash), na.rm = TRUE),
+    Delta_Flash = format_delta(sum(as.numeric(table_deltas$N_Flash) - as.numeric(table_deltas$N_alg), na.rm = TRUE)),
+    N_Think = sum(as.numeric(table_deltas$N_Think), na.rm = TRUE),
+    Delta_Think = format_delta(sum(as.numeric(table_deltas$N_Think) - as.numeric(table_deltas$N_alg), na.rm = TRUE)),
+    N_Pro = sum(as.numeric(table_deltas$N_Pro), na.rm = TRUE),
+    Delta_Pro = format_delta(sum(as.numeric(table_deltas$N_Pro) - as.numeric(table_deltas$N_alg), na.rm = TRUE))
+  )
+  table_deltas <- bind_rows(table_deltas, sum_deltas)
+
+  # Table 4
+  duration_interactions <- c("Moved", "Named", "Created", "Connected", "Assigned", "Changed Data Type")
+  table_duration_mean_all <- tibble(Interaction = duration_interactions) %>%
+    mutate(
+      Algorithmus = sapply(.data$Interaction, function(i) get_mean_across_participants(durs_alg, i)),
+      Flash = sapply(.data$Interaction, function(i) get_mean_across_participants(durs_flash, i)),
+      Thinking = sapply(.data$Interaction, function(i) get_mean_across_participants(durs_think, i)),
+      Pro = sapply(.data$Interaction, function(i) get_mean_across_participants(durs_pro, i))
+    ) %>%
+    mutate(
+      Algorithmus = format_one_decimal_or_dash(.data$Algorithmus),
+      Flash = format_one_decimal_or_dash(.data$Flash),
+      Thinking = format_one_decimal_or_dash(.data$Thinking),
+      Pro = format_one_decimal_or_dash(.data$Pro)
+    )
+
+  # Table 5
+  model_missing_categories <- function(vec_model, vec_alg) {
+    alg_keys <- names(vec_alg)
+    sum(sapply(alg_keys, function(k) get_n(vec_alg, k) > 0 && get_n(vec_model, k) == 0))
+  }
+  model_additional_categories <- function(vec_model, vec_alg) {
+    all_keys <- union(names(vec_alg), names(vec_model))
+    sum(sapply(all_keys, function(k) get_n(vec_alg, k) == 0 && get_n(vec_model, k) > 0))
+  }
+  model_detected_categories <- function(vec_model, vec_alg) {
+    all_keys <- union(names(vec_alg), names(vec_model))
+    sum(sapply(all_keys, function(k) get_n(vec_alg, k) > 0 && get_n(vec_model, k) > 0))
+  }
+
+  alg_nonzero_category_count <- sum(as.numeric(vec_alg) > 0)
+
+  missing_alg <- model_missing_categories(vec_alg, vec_alg)
+  missing_flash <- model_missing_categories(vec_flash, vec_alg)
+  missing_think <- model_missing_categories(vec_think, vec_alg)
+  missing_pro <- model_missing_categories(vec_pro, vec_alg)
+
+  additional_alg <- model_additional_categories(vec_alg, vec_alg)
+  additional_flash <- model_additional_categories(vec_flash, vec_alg)
+  additional_think <- model_additional_categories(vec_think, vec_alg)
+  additional_pro <- model_additional_categories(vec_pro, vec_alg)
+
+  detected_alg <- model_detected_categories(vec_alg, vec_alg)
+  detected_flash <- model_detected_categories(vec_flash, vec_alg)
+  detected_think <- model_detected_categories(vec_think, vec_alg)
+  detected_pro <- model_detected_categories(vec_pro, vec_alg)
+
+  total_alg <- sum(sum_by_interaction(counts_alg)$N, na.rm = TRUE)
+  total_flash <- sum(sum_by_interaction(counts_flash)$N, na.rm = TRUE)
+  total_think <- sum(sum_by_interaction(counts_think)$N, na.rm = TRUE)
+  total_pro <- sum(sum_by_interaction(counts_pro)$N, na.rm = TRUE)
+
+  table_overall <- tibble(
+    Metrik = c(
+      "Gesamtinteraktionen",
+      "Granularitaetsfaktor",
+      "Nicht-Move-Interaktionen",
+      "% Move-Interaktionen",
+      "Erkannte Taxonomie-Kategorien",
+      "Fehlende Kategorien",
+      "Zusaetzliche Kategorien"
+    ),
+    Algorithmus = c(
+      as.character(total_alg),
+      "1.00",
+      as.character(as.numeric(nm_alg$Non_Move)),
+      paste0(as.numeric(nm_alg$Pct_Move), "%"),
+      paste0(detected_alg, "/", alg_nonzero_category_count),
+      as.character(missing_alg),
+      as.character(additional_alg)
+    ),
+    Flash = c(
+      as.character(total_flash),
+      sprintf("%.2f", total_flash / total_alg),
+      as.character(as.numeric(nm_flash$Non_Move)),
+      paste0(as.numeric(nm_flash$Pct_Move), "%"),
+      paste0(detected_flash, "/", alg_nonzero_category_count),
+      as.character(missing_flash),
+      as.character(additional_flash)
+    ),
+    Thinking = c(
+      as.character(total_think),
+      sprintf("%.2f", total_think / total_alg),
+      as.character(as.numeric(nm_think$Non_Move)),
+      paste0(as.numeric(nm_think$Pct_Move), "%"),
+      paste0(detected_think, "/", alg_nonzero_category_count),
+      as.character(missing_think),
+      as.character(additional_think)
+    ),
+    Pro = c(
+      as.character(total_pro),
+      sprintf("%.2f", total_pro / total_alg),
+      as.character(as.numeric(nm_pro$Non_Move)),
+      paste0(as.numeric(nm_pro$Pct_Move), "%"),
+      paste0(detected_pro, "/", alg_nonzero_category_count),
+      as.character(missing_pro),
+      as.character(additional_pro)
+    )
+  )
+
+  write_csv(table_total_counts, file.path(out_dir, "comparison_total_counts_by_participant.csv"))
+  write_csv(table_non_move, file.path(out_dir, "comparison_non_move_counts.csv"))
+  write_csv(table_deltas, file.path(out_dir, "comparison_interaction_type_deltas.csv"))
+  write_csv(table_duration_mean_all, file.path(out_dir, "comparison_duration_mean_all_participants.csv"))
+  write_csv(table_overall, file.path(out_dir, "comparison_overall_quantitative_summary.csv"))
+
+  message("Saved comparison tables in: ", out_dir)
+}
+```
+
+## 1) Generate summary CSVs in each source folder
+
+```{r generate-summaries}
+for (folder in folders_to_summarize) {
+  full_folder <- file.path(base_dir, folder)
+  if (!dir.exists(full_folder)) {
+    stop(sprintf("Folder not found: %s", folder))
+  }
+  summarize_interaction_logs(full_folder, full_folder)
+}
+```
+
+## 2) Generate comparison tables
+
+```{r generate-comparisons}
+create_comparison_tables(base_dir = base_dir, out_dir = comparison_output_dir)
+```
+
+## Output files created
+
+```{r show-outputs}
+summary_outputs <- c(
+  "output/summary_action_counts_by_participant.csv",
+  "output/summary_mean_duration_by_participant.csv",
+  "gemini/fast/summary_action_counts_by_participant.csv",
+  "gemini/fast/summary_mean_duration_by_participant.csv",
+  "gemini/thinking/summary_action_counts_by_participant.csv",
+  "gemini/thinking/summary_mean_duration_by_participant.csv",
+  "gemini/pro/summary_action_counts_by_participant.csv",
+  "gemini/pro/summary_mean_duration_by_participant.csv"
+)
+
+comparison_outputs <- c(
+  "comparison/comparison_total_counts_by_participant.csv",
+  "comparison/comparison_non_move_counts.csv",
+  "comparison/comparison_interaction_type_deltas.csv",
+  "comparison/comparison_duration_mean_all_participants.csv",
+  "comparison/comparison_overall_quantitative_summary.csv"
+)
+
+all_outputs <- c(summary_outputs, comparison_outputs)
+
+tibble(
+  file = all_outputs,
+  exists = file.exists(file.path(base_dir, all_outputs))
+) %>%
+  print(n = Inf)
+```

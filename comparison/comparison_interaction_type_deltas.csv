@@ -1,0 +1,17 @@
+Interaction,N_alg,N_Flash,Delta_Flash,N_Think,Delta_Think,N_Pro,Delta_Pro
+Assigned,89,130,+41,90,+1,130,+41
+Created,147,195,+48,147,0,195,+48
+Connected,47,66,+19,48,+1,63,+16
+Disconnected,4,20,+16,8,+4,16,+12
+Deleted,11,20,+9,13,+2,20,+9
+Named,139,136,-3,207,+68,192,+53
+Renamed,22,121,+99,52,+30,49,+27
+Moved,211,5750,+5539,701,+490,803,+592
+Changed Data Type,90,0,-90,0,-90,102,+12
+Defined Cardinality,43,43,0,0,-43,0,-43
+Changed Cardinality,12,58,+46,57,+45,55,+43
+Unassigned,0,44,+44,3,+3,44,+44
+Re-connected,0,0,0,99,+99,0,0
+Re-assigned,0,0,0,0,0,0,0
+Connection aborted,1,1,0,0,-1,1,0
+Summe,816,6584,+5768,1425,+609,1670,+854
