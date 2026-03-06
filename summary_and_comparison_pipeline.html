@@ -11,7 +11,7 @@
 
 <meta name="author" content="Marco Stock" />
 
-<meta name="date" content="2026-03-03" />
+<meta name="date" content="2026-03-05" />
 
 <title>Summary and Comparison Pipeline</title>
 
@@ -1569,7 +1569,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Summary and Comparison Pipeline</h1>
 <h4 class="author">Marco Stock</h4>
-<h4 class="date">2026-03-03</h4>
+<h4 class="date">2026-03-05</h4>
 
 </div>
 
@@ -1657,6 +1657,19 @@ comparison_output_dir &lt;- file.path(base_dir, &quot;comparison&quot;)</code></
     ) %&gt;%
     arrange(.data$Interaction)
 
+  participant_count_cols &lt;- setdiff(names(count_table), &quot;Interaction&quot;)
+  count_table &lt;- count_table %&gt;%
+    mutate(Total = rowSums(across(all_of(participant_count_cols)), na.rm = TRUE))
+
+  total_row_counts &lt;- count_table %&gt;%
+    summarise(
+      Interaction = &quot;Total&quot;,
+      across(all_of(participant_count_cols), ~ sum(.x, na.rm = TRUE)),
+      Total = sum(.data$Total, na.rm = TRUE)
+    )
+
+  count_table &lt;- bind_rows(count_table, total_row_counts)
+
   mean_duration_table &lt;- all_logs %&gt;%
     mutate(`Duration (s)` = as.numeric(.data$`Duration (s)`)) %&gt;%
     group_by(.data$Interaction, .data$Participant) %&gt;%
@@ -1708,15 +1721,17 @@ create_comparison_tables &lt;- function(base_dir = &quot;.&quot;, out_dir = file
 
   read_count_summary &lt;- function(path) read_csv(path, show_col_types = FALSE)
   read_duration_summary &lt;- function(path) read_csv(path, show_col_types = FALSE)
-  participant_cols &lt;- function(df) setdiff(names(df), &quot;Interaction&quot;)
+  participant_cols &lt;- function(df) setdiff(names(df), c(&quot;Interaction&quot;, &quot;Total&quot;))
 
   sum_by_participant &lt;- function(df) {
+    df &lt;- df %&gt;% filter(.data$Interaction != &quot;Total&quot;)
     cols &lt;- participant_cols(df)
     out &lt;- colSums(df[, cols, drop = FALSE], na.rm = TRUE)
     tibble(Participant = names(out), N = as.numeric(out))
   }
 
   sum_by_interaction &lt;- function(df) {
+    df &lt;- df %&gt;% filter(.data$Interaction != &quot;Total&quot;)
     cols &lt;- participant_cols(df)
     df %&gt;%
       group_by(.data$Interaction) %&gt;%

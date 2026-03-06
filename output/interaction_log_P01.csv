@@ -64,21 +64,21 @@ Timestamp (finished),Interaction,Type,UUID,Details,Duration (s),"Pos (w,h)"
 2019-01-07T16:41:46Z,Named,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0,enthält,6,NA
 2019-01-07T16:41:47Z,Moved,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0,"+0%, +1.9%",0,"(34.9%, 73.1%)"
 2019-01-07T16:42:11Z,Renamed,Relationship,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0,enthält -> bestehen,14,NA
-2019-01-07T16:42:12Z,Connected,Link,c4f64b18-63b9-45fb-b9ba-af116f62062c,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0,NA
-2019-01-07T16:42:18Z,Connected,Link,1e1ad39c-af55-46ed-91a7-acd39102a68a,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0 -> 6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,0,NA
+2019-01-07T16:42:12Z,Connected,Link,c4f64b18-63b9-45fb-b9ba-af116f62062c,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,1,NA
+2019-01-07T16:42:18Z,Connected,Link,1e1ad39c-af55-46ed-91a7-acd39102a68a,11e96b1b-9869-4c9d-a8f2-22ad26ef33b0 -> 6c5e6894-1ca9-4a69-ae1e-ac0bba64cca0,3,NA
 2019-01-07T16:42:26Z,Moved,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,"-38%, -32.4%",4,"(22.9%, 25.9%)"
 2019-01-07T16:42:41Z,Moved,Entity,f8dfe296-375e-4e9b-b302-c8055669b027,"-4.7%, +0%",2,"(6.8%, 59.3%)"
 2019-01-07T16:42:47Z,Created,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1,NA,0,"(26.6%, 51.9%)"
 2019-01-07T16:42:52Z,Moved,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1,"-4.7%, +5.6%",4,"(21.9%, 57.4%)"
 2019-01-07T16:43:00Z,Named,Relationship,95ab7c24-fd20-467f-ac8f-2cf153ec02e1,leihe,3,NA
-2019-01-07T16:43:03Z,Connected,Link,31bda48c-92cf-4c59-b1ec-ad70562f0966,95ab7c24-fd20-467f-ac8f-2cf153ec02e1 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0,NA
-2019-01-07T16:43:09Z,Connected,Link,ab9f8bc2-331a-4fc8-85a4-56a8b05fd45c,95ab7c24-fd20-467f-ac8f-2cf153ec02e1 -> f8dfe296-375e-4e9b-b302-c8055669b027,0,NA
+2019-01-07T16:43:03Z,Connected,Link,31bda48c-92cf-4c59-b1ec-ad70562f0966,95ab7c24-fd20-467f-ac8f-2cf153ec02e1 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,3,NA
+2019-01-07T16:43:09Z,Connected,Link,ab9f8bc2-331a-4fc8-85a4-56a8b05fd45c,95ab7c24-fd20-467f-ac8f-2cf153ec02e1 -> f8dfe296-375e-4e9b-b302-c8055669b027,4,NA
 2019-01-07T16:44:07Z,Moved,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,"+1%, +3.7%",3,"(24%, 29.6%)"
 2019-01-07T16:44:16Z,Created,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7,NA,0,"(34.9%, 38%)"
 2019-01-07T16:44:27Z,Named,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7,Status,4,NA
 2019-01-07T16:44:29Z,Moved,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7,"-2.6%, +3.7%",1,"(32.3%, 41.7%)"
-2019-01-07T16:44:34Z,Connection aborted,Link,61417f55-2944-456d-905e-aca41a43ddc7,ad54b459-2c67-4076-a408-e158126bf7f7,0,NA
-2019-01-07T16:44:40Z,Connected,Link,4a18586e-362c-41a3-a3fe-473d53eba951,ad54b459-2c67-4076-a408-e158126bf7f7 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,0,NA
+2019-01-07T16:44:34Z,Connection aborted,Link,61417f55-2944-456d-905e-aca41a43ddc7,ad54b459-2c67-4076-a408-e158126bf7f7,3,NA
+2019-01-07T16:44:40Z,Connected,Link,4a18586e-362c-41a3-a3fe-473d53eba951,ad54b459-2c67-4076-a408-e158126bf7f7 -> fad9a42b-8d78-4c5a-af5e-071ebabf923c,3,NA
 2019-01-07T16:45:17Z,Deleted,Entity,33fdb3ac-dc27-4e15-81c6-367d52ccc7ce,"Attribute e24c0fc7-1d77-4cde-bc88-3709c5770a06, Attribute 83da95b6-e85a-47e2-b881-3daaabb85280",0,NA
 2019-01-07T16:45:20Z,Deleted,Relationship,ad54b459-2c67-4076-a408-e158126bf7f7,Link 4a18586e-362c-41a3-a3fe-473d53eba951,0,NA
 2019-01-07T16:45:25Z,Created,Attribute,734ae092-6672-4f49-befc-6a1bc013ae52,NA,0,"(38.5%, 33.3%)"

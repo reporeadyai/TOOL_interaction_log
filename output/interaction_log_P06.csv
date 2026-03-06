@@ -46,8 +46,8 @@ Timestamp (finished),Interaction,Type,UUID,Details,Duration (s),"Pos (w,h)"
 2019-01-08T11:11:29Z,Moved,Entity,c15fd332-9744-425d-9134-ea87d1904f06,"+26%, +17.6%",4,"(73.4%, 86.1%)"
 2019-01-08T11:11:32Z,Created,Relationship,789c692c-e18a-4ba9-8a18-8fb39aef93f8,NA,0,"(67.2%, 78.7%)"
 2019-01-08T11:11:35Z,Moved,Relationship,789c692c-e18a-4ba9-8a18-8fb39aef93f8,"-5.2%, +5.6%",1,"(62%, 84.3%)"
-2019-01-08T11:11:38Z,Connected,Link,523fa890-7c1b-461b-8f91-80039ad2e921,789c692c-e18a-4ba9-8a18-8fb39aef93f8 -> c15fd332-9744-425d-9134-ea87d1904f06,0,NA
-2019-01-08T11:11:43Z,Connected,Link,00877d04-bf79-4ff3-9873-0bf1b9a3f651,789c692c-e18a-4ba9-8a18-8fb39aef93f8 -> 4e7212c0-1b82-4466-8cc8-57faeb0fe52d,0,NA
+2019-01-08T11:11:38Z,Connected,Link,523fa890-7c1b-461b-8f91-80039ad2e921,789c692c-e18a-4ba9-8a18-8fb39aef93f8 -> c15fd332-9744-425d-9134-ea87d1904f06,1,NA
+2019-01-08T11:11:43Z,Connected,Link,00877d04-bf79-4ff3-9873-0bf1b9a3f651,789c692c-e18a-4ba9-8a18-8fb39aef93f8 -> 4e7212c0-1b82-4466-8cc8-57faeb0fe52d,2,NA
 2019-01-08T11:12:29Z,Named,Relationship,789c692c-e18a-4ba9-8a18-8fb39aef93f8,gehört zu,17,NA
 2019-01-08T11:12:35Z,Defined Cardinality,Link,00877d04-bf79-4ff3-9873-0bf1b9a3f651,"1,*",6,NA
 2019-01-08T11:13:20Z,Defined Cardinality,Link,523fa890-7c1b-461b-8f91-80039ad2e921,"1,*",5,NA
@@ -57,10 +57,10 @@ Timestamp (finished),Interaction,Type,UUID,Details,Duration (s),"Pos (w,h)"
 2019-01-08T11:15:15Z,Created,Relationship,df26057b-6096-4847-bcfa-d562b99b68b5,NA,0,"(46.9%, 59.3%)"
 2019-01-08T11:15:31Z,Named,Relationship,df26057b-6096-4847-bcfa-d562b99b68b5,leiht aus,5,NA
 2019-01-08T11:15:32Z,Moved,Relationship,df26057b-6096-4847-bcfa-d562b99b68b5,"+2.6%, +3.7%",0,"(49.5%, 63%)"
-2019-01-08T11:15:34Z,Connected,Link,009e36c7-9da0-4499-bb0f-d5149d9d8c4b,df26057b-6096-4847-bcfa-d562b99b68b5 -> 4e7212c0-1b82-4466-8cc8-57faeb0fe52d,0,NA
+2019-01-08T11:15:34Z,Connected,Link,009e36c7-9da0-4499-bb0f-d5149d9d8c4b,df26057b-6096-4847-bcfa-d562b99b68b5 -> 4e7212c0-1b82-4466-8cc8-57faeb0fe52d,1,NA
 2019-01-08T11:15:49Z,Defined Cardinality,Link,009e36c7-9da0-4499-bb0f-d5149d9d8c4b,"0,*",7,NA
 2019-01-08T11:15:54Z,Moved,Entity,0b658134-86b7-46a7-829a-f47c4ff89829,"+7.8%, -5.6%",2,"(48.4%, 42.6%)"
-2019-01-08T11:16:00Z,Connected,Link,24d5d1d5-fe9c-4891-90e4-5e807ceb341d,df26057b-6096-4847-bcfa-d562b99b68b5 -> 0b658134-86b7-46a7-829a-f47c4ff89829,0,NA
+2019-01-08T11:16:00Z,Connected,Link,24d5d1d5-fe9c-4891-90e4-5e807ceb341d,df26057b-6096-4847-bcfa-d562b99b68b5 -> 0b658134-86b7-46a7-829a-f47c4ff89829,1,NA
 2019-01-08T11:16:06Z,Defined Cardinality,Link,24d5d1d5-fe9c-4891-90e4-5e807ceb341d,"0,1",7,NA
 2019-01-08T11:16:40Z,Changed Cardinality,Link,00877d04-bf79-4ff3-9873-0bf1b9a3f651,"1,1 -> 1,*",8,NA
 2019-01-08T11:17:20Z,Renamed,Attribute,5bca6469-f6f8-41bd-ac41-92e87ada5220,Preis -> Preis:,9,NA

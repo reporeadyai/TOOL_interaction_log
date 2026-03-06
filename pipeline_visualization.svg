@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 880" width="600" height="880">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" width="600" height="720">
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
       <polygon points="0 0, 8 3, 0 6" fill="#333"/>
@@ -7,7 +7,7 @@
   </defs>
 
   <!-- Background -->
-  <rect width="600" height="880" fill="#fff"/>
+  <rect width="600" height="720" fill="#fff"/>
 
   <!-- Input -->
   <g transform="translate(300, 35)">
@@ -35,8 +35,8 @@
     <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
     <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">2</text>
     <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
-    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Replay-Extraktion</text>
-    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Events je Element selektieren und aufbereiten</text>
+    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Parsing</text>
+    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">JSON robust parsen, Kerndaten extrahieren</text>
   </g>
 
   <!-- Arrow -->
@@ -47,8 +47,8 @@
     <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
     <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">3</text>
     <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
-    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Parsing</text>
-    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">JSON robust parsen, Kerndaten extrahieren</text>
+    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Zustandsvergleich</text>
+    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">&#196;nderungen zwischen Replay-Zust&#228;nden finden</text>
   </g>
 
   <!-- Arrow -->
@@ -59,8 +59,8 @@
     <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
     <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">4</text>
     <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
-    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Zustandsvergleich</text>
-    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">&#196;nderungen zwischen Replay-Zust&#228;nden finden</text>
+    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Klassifizierung</text>
+    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Interaktionstypen semantisch zuordnen</text>
   </g>
 
   <!-- Arrow -->
@@ -71,8 +71,8 @@
     <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
     <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">5</text>
     <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
-    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Klassifizierung</text>
-    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Interaktionstypen semantisch zuordnen</text>
+    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Dauersch&#228;tzung</text>
+    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Dauer zwischen Replays inkl. Sequenzlogik</text>
   </g>
 
   <!-- Arrow -->
@@ -83,8 +83,8 @@
     <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
     <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">6</text>
     <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
-    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Zusatzableitung</text>
-    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Kardinalit&#228;t und Datentyp aus Changes ableiten</text>
+    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Sonderf&#228;lle</text>
+    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Kaskaden, Abbr&#252;che und Null-Move-Artefakte</text>
   </g>
 
   <!-- Arrow -->
@@ -95,8 +95,8 @@
     <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
     <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">7</text>
     <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
-    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Dauersch&#228;tzung</text>
-    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Dauer zwischen Replays inkl. Sequenzlogik</text>
+    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Verschmelzung</text>
+    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Kompatible Interaktionen zeitnah zusammenf&#252;hren</text>
   </g>
 
   <!-- Arrow -->
@@ -107,39 +107,15 @@
     <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
     <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">8</text>
     <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
-    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Sonderf&#228;lle</text>
-    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Kaskaden, Abbr&#252;che und Null-Move-Artefakte</text>
-  </g>
-
-  <!-- Arrow -->
-  <line x1="300" y1="640" x2="300" y2="670" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- Step 9 -->
-  <g transform="translate(300, 692)">
-    <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
-    <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">9</text>
-    <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
-    <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Verschmelzung</text>
-    <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">Kompatible Interaktionen zeitnah zusammenf&#252;hren</text>
-  </g>
-
-  <!-- Arrow -->
-  <line x1="300" y1="714" x2="300" y2="744" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- Step 10 -->
-  <g transform="translate(300, 766)">
-    <rect x="-220" y="-22" width="440" height="44" fill="none" stroke="#333" stroke-width="1.5"/>
-    <text x="-195" y="5" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">10</text>
-    <line x1="-175" y1="-22" x2="-175" y2="22" stroke="#333" stroke-width="1"/>
     <text x="15" y="-4" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">Output</text>
     <text x="15" y="12" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">CSV pro Teilnehmer erzeugen</text>
   </g>
 
   <!-- Arrow -->
-  <line x1="300" y1="788" x2="300" y2="818" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="300" y1="640" x2="300" y2="665" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
 
   <!-- Output -->
-  <g transform="translate(300, 840)">
+  <g transform="translate(300, 688)">
     <rect x="-110" y="-15" width="220" height="30" rx="15" fill="none" stroke="#333" stroke-width="1.5"/>
     <text x="0" y="5" font-family="Arial, sans-serif" font-size="12" fill="#333" text-anchor="middle">Interaktionsprotokoll (CSV)</text>
   </g>

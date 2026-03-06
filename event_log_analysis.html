@@ -11,7 +11,7 @@
 
 <meta name="author" content="Marco Stock" />
 
-<meta name="date" content="2026-02-23" />
+<meta name="date" content="2026-03-05" />
 
 <title>TOOL Event Log Analysis</title>
 
@@ -1569,7 +1569,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">TOOL Event Log Analysis</h1>
 <h4 class="author">Marco Stock</h4>
-<h4 class="date">2026-02-23</h4>
+<h4 class="date">2026-03-05</h4>
 
 </div>
 
@@ -1600,10 +1600,10 @@ calculated from raw events:
 replay event</li>
 <li>Moved: from start of continuous move sequence to the replay
 event</li>
-<li>Assigned/Unassigned/Re-assigned: from first parent-change event to
-the replay event</li>
-<li>Connected/Re-connected: from first link-change event to the replay
-event</li>
+<li>Assigned/Unassigned/Re-assigned: from start of continuous
+change-event sequence to the replay event</li>
+<li>Connected/Re-connected: from start of continuous change-event
+sequence to the replay event</li>
 <li>Defined/Changed Cardinality: from start of continuous typing
 sequence to the replay event</li>
 <li>Changed Data Type: from start of continuous typing sequence to the
@@ -1721,6 +1721,19 @@ extract_link_endpoints &lt;- function(details) {
   return(list(
     source = if (!is.null(source_id)) source_id else NA_character_,
     target = if (!is.null(target_id)) target_id else NA_character_
+  ))
+}
+
+# Helper function to extract link target position (x, y)
+extract_link_target_position &lt;- function(details) {
+  if (is.null(details) || is.null(details$target)) {
+    return(list(x = NA_real_, y = NA_real_))
+  }
+  tx &lt;- details$target$x
+  ty &lt;- details$target$y
+  return(list(
+    x = if (!is.null(tx)) as.numeric(tx) else NA_real_,
+    y = if (!is.null(ty)) as.numeric(ty) else NA_real_
   ))
 }
 
@@ -1850,7 +1863,7 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
       element_datatype = extract_datatype(parsed_details)
     ) %&gt;%
     ungroup()
-  
+
   # Generate interactions by comparing consecutive replay states
   interactions &lt;- replay_events %&gt;%
     group_by(Model.Element.ID) %&gt;%
@@ -2055,7 +2068,8 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
       ) %&gt;%
       ungroup()
     
-    # For each replay, check if there was data type typing activity since the previous replay
+    # For each replay, check if there was data type typing activity since the previous
+    # replay of the same UUID (or from log start if none exists).
     had_typing_flags &lt;- sapply(seq_len(nrow(attribute_replays)), function(i) {
       replay &lt;- attribute_replays[i, ]
       typing_events &lt;- attribute_changes %&gt;%
@@ -2087,17 +2101,14 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
     if (nrow(datatype_events) &gt; 0) {
       datatype_durations &lt;- sapply(seq_len(nrow(datatype_events)), function(i) {
         event &lt;- datatype_events[i, ]
-        prev_ts &lt;- event$prev_replay_ts
         
         relevant_changes &lt;- attribute_changes %&gt;%
           filter(Model.Element.ID == event$UUID, 
                  Timestamp &lt; event$Timestamp,
                  is_datatype_typing == TRUE)
-        
-        if (!is.na(prev_ts)) {
-          relevant_changes &lt;- relevant_changes %&gt;% filter(Timestamp &gt; prev_ts)
+        if (!is.na(event$prev_replay_ts)) {
+          relevant_changes &lt;- relevant_changes %&gt;% filter(Timestamp &gt; event$prev_replay_ts)
         }
-        
         calculate_sequence_duration(relevant_changes$Timestamp, event$Timestamp, duration_gap_thresh)
       })
       
@@ -2111,9 +2122,9 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
              prev_datatype, element_datatype, original_order)
   }
   
-  # Get all raw events (non-replay) with parsed details for duration calculation
+  # Get raw change events (non-replay) with parsed details for duration calculation
   raw_events &lt;- participant_data %&gt;%
-    filter(Operation %in% c(&quot;add&quot;, &quot;change&quot;, &quot;move&quot;)) %&gt;%
+    filter(Operation == &quot;change&quot;) %&gt;%
     arrange(Model.Element.ID, Timestamp)
   
   # Parse raw events to extract name, position, and datatype for comparison
@@ -2130,19 +2141,21 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
         raw_link_info = list(extract_link_endpoints(parsed_details)),
         raw_link_source = raw_link_info$source,
         raw_link_target = raw_link_info$target,
+        raw_link_target_pos = list(extract_link_target_position(parsed_details)),
+        raw_link_target_x = raw_link_target_pos$x,
+        raw_link_target_y = raw_link_target_pos$y,
         raw_datatype = extract_datatype(parsed_details)
       ) %&gt;%
       ungroup() %&gt;%
-      select(Model.Element.ID, Timestamp, Operation, raw_name, raw_pos_x, raw_pos_y, 
-             raw_parent, raw_link_source, raw_link_target, raw_datatype)
+      select(Model.Element.ID, Language.Concept, Timestamp, Operation, raw_name, raw_pos_x, raw_pos_y, 
+             raw_parent, raw_link_source, raw_link_target, raw_link_target_x, raw_link_target_y, raw_datatype)
   }
   
-  # For each interaction, find the first raw event that started the change
+  # Duration windows are bounded by the previous replay of the same UUID;
+  # if none exists, the window starts at log start.
   interactions &lt;- interactions %&gt;%
     group_by(Model.Element.ID) %&gt;%
-    mutate(
-      prev_replay_timestamp = lag(Timestamp)
-    ) %&gt;%
+    mutate(prev_replay_timestamp = lag(Timestamp)) %&gt;%
     ungroup()
   
   # Apply duration calculation to each interaction
@@ -2162,18 +2175,20 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
         next
       }
       
-      # If no previous replay, can&#39;t calculate duration properly
+      # Get raw events for this element since previous replay of same UUID.
+      # If no previous replay exists, include all raw events up to replay timestamp.
       if (is.na(prev_replay_ts)) {
-        durations[i] &lt;- 0
-        next
+        relevant_raw &lt;- raw_events %&gt;%
+          filter(Model.Element.ID == uuid,
+                 Timestamp &lt;= replay_ts) %&gt;%
+          arrange(Timestamp)
+      } else {
+        relevant_raw &lt;- raw_events %&gt;%
+          filter(Model.Element.ID == uuid,
+                 Timestamp &gt; prev_replay_ts,
+                 Timestamp &lt;= replay_ts) %&gt;%
+          arrange(Timestamp)
       }
-      
-      # Get raw events for this element between previous replay and current replay
-      relevant_raw &lt;- raw_events %&gt;%
-        filter(Model.Element.ID == uuid,
-               Timestamp &gt; prev_replay_ts,
-               Timestamp &lt;= replay_ts) %&gt;%
-        arrange(Timestamp)
       
       if (nrow(relevant_raw) == 0) {
         durations[i] &lt;- 0
@@ -2187,7 +2202,7 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
         
       } else if (interaction_type == &quot;Moved&quot;) {
         pos_ts &lt;- relevant_raw %&gt;% 
-          filter(!is.na(raw_pos_x) | !is.na(raw_pos_y) | Operation == &quot;move&quot;) %&gt;% 
+          filter(!is.na(raw_pos_x) | !is.na(raw_pos_y)) %&gt;% 
           pull(Timestamp)
         durations[i] &lt;- calculate_sequence_duration(pos_ts, replay_ts, duration_gap_thresh)
         
@@ -2196,19 +2211,20 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
         durations[i] &lt;- calculate_sequence_duration(dt_ts, replay_ts, duration_gap_thresh)
         
       } else if (interaction_type %in% c(&quot;Assigned&quot;, &quot;Unassigned&quot;, &quot;Re-assigned&quot;)) {
-        durations[i] &lt;- max(0, as.numeric(difftime(replay_ts, relevant_raw$Timestamp[1], units = &quot;secs&quot;)))
+        rel_ts &lt;- relevant_raw %&gt;%
+          filter(!is.na(raw_pos_x) | !is.na(raw_pos_y)) %&gt;%
+          pull(Timestamp)
+        durations[i] &lt;- calculate_sequence_duration(rel_ts, replay_ts, duration_gap_thresh)
         
       } else if (interaction_type %in% c(&quot;Connected&quot;, &quot;Re-connected&quot;)) {
-        link_events &lt;- relevant_raw %&gt;%
-          filter(!is.na(raw_link_source) | !is.na(raw_link_target))
-        if (nrow(link_events) &gt; 0) {
-          durations[i] &lt;- max(0, as.numeric(difftime(replay_ts, link_events$Timestamp[1], units = &quot;secs&quot;)))
-        } else {
-          durations[i] &lt;- 0
-        }
+        rel_ts &lt;- relevant_raw %&gt;%
+          filter(!is.na(raw_link_target_x) | !is.na(raw_link_target_y)) %&gt;%
+          pull(Timestamp)
+        durations[i] &lt;- calculate_sequence_duration(rel_ts, replay_ts, duration_gap_thresh)
         
       } else {
-        durations[i] &lt;- max(0, as.numeric(difftime(replay_ts, relevant_raw$Timestamp[1], units = &quot;secs&quot;)))
+        # No generic fallback to the first raw event
+        durations[i] &lt;- 0
       }
     }
     
@@ -2217,8 +2233,6 @@ type_priority_order &lt;- c(&quot;Entity&quot;, &quot;Relationship&quot;, &quot;
     interactions &lt;- interactions %&gt;%
       mutate(`Duration (s)` = 0)
   }
-  
-  # Remove helper column
   interactions &lt;- interactions %&gt;%
     select(-prev_replay_timestamp)
   

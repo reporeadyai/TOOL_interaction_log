@@ -33,8 +33,8 @@ Timestamp (finished),Interaction,Type,UUID,Details,Duration (s),"Pos (w,h)"
 2019-01-29T15:35:39Z,Moved,Entity,feaf8278-d264-42d6-a943-a5957f4d323a,"+1%, +1.9%",0,"(55.2%, 66.7%)"
 2019-01-29T15:35:41Z,Moved,Relationship,9c8d8d63-9189-450d-b393-d841afb7ff7b,"-2.1%, +4.6%",1,"(39.1%, 62%)"
 2019-01-29T15:36:07Z,Named,Relationship,9c8d8d63-9189-450d-b393-d841afb7ff7b,existiert,1,NA
-2019-01-29T15:36:10Z,Connected,Link,e7e4f497-dee5-4917-8669-d7e50a54fd0f,02c88801-9bbf-4acc-8f66-2b81f2202c18 -> 9c8d8d63-9189-450d-b393-d841afb7ff7b,0,NA
-2019-01-29T15:36:12Z,Connected,Link,5a01895a-281d-414c-953a-2db9e404688a,9c8d8d63-9189-450d-b393-d841afb7ff7b -> feaf8278-d264-42d6-a943-a5957f4d323a,0,NA
+2019-01-29T15:36:10Z,Connected,Link,e7e4f497-dee5-4917-8669-d7e50a54fd0f,02c88801-9bbf-4acc-8f66-2b81f2202c18 -> 9c8d8d63-9189-450d-b393-d841afb7ff7b,1,NA
+2019-01-29T15:36:12Z,Connected,Link,5a01895a-281d-414c-953a-2db9e404688a,9c8d8d63-9189-450d-b393-d841afb7ff7b -> feaf8278-d264-42d6-a943-a5957f4d323a,1,NA
 2019-01-29T15:36:23Z,Defined Cardinality,Link,e7e4f497-dee5-4917-8669-d7e50a54fd0f,"1,*",2,NA
 2019-01-29T15:36:41Z,Defined Cardinality,Link,5a01895a-281d-414c-953a-2db9e404688a,"1,1",7,NA
 2019-01-29T15:36:53Z,Created,Entity,6a4bf60e-395c-4b61-9c32-a36521448deb,NA,0,"(60.4%, 27.8%)"
@@ -72,7 +72,7 @@ Timestamp (finished),Interaction,Type,UUID,Details,Duration (s),"Pos (w,h)"
 2019-01-29T15:40:05Z,Moved,Relationship,3000ec67-556e-44a1-9439-f33ef079fe44,"-3.6%, +4.6%",0,"(42.7%, 30.6%)"
 2019-01-29T15:40:07Z,Moved,Entity,37b50cb7-351d-4826-954c-dfa7991307b2,"-3.6%, +0.9%",0,"(23.4%, 32.4%)"
 2019-01-29T15:40:09Z,Moved,Relationship,3000ec67-556e-44a1-9439-f33ef079fe44,"-3.1%, +0%",1,"(39.6%, 30.6%)"
-2019-01-29T15:40:13Z,Connected,Link,4f609daa-7f4b-4763-9757-0c28d2b658e6,37b50cb7-351d-4826-954c-dfa7991307b2 -> 3000ec67-556e-44a1-9439-f33ef079fe44,0,NA
+2019-01-29T15:40:13Z,Connected,Link,4f609daa-7f4b-4763-9757-0c28d2b658e6,37b50cb7-351d-4826-954c-dfa7991307b2 -> 3000ec67-556e-44a1-9439-f33ef079fe44,1,NA
 2019-01-29T15:40:15Z,Connected,Link,fccdb6cf-17aa-4634-9d7a-198f9bdcfc2e,3000ec67-556e-44a1-9439-f33ef079fe44 -> 6a4bf60e-395c-4b61-9c32-a36521448deb,0,NA
 2019-01-29T15:40:25Z,Defined Cardinality,Link,4f609daa-7f4b-4763-9757-0c28d2b658e6,"0,*",13,NA
 2019-01-29T15:40:33Z,Defined Cardinality,Link,fccdb6cf-17aa-4634-9d7a-198f9bdcfc2e,"1,1",6,NA

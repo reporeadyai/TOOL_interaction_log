@@ -26,8 +26,8 @@ The interaction log provides a human-readable abstraction of modeling activities
     - Created, Deleted, Disconnected: 0 (instantaneous)
     - Named/Renamed: from start of continuous typing sequence to the replay event
     - Moved: from start of continuous move sequence to the replay event
-    - Assigned/Unassigned/Re-assigned: from first parent-change event to the replay event
-    - Connected/Re-connected: from first link-change event to the replay event
+    - Assigned/Unassigned/Re-assigned: from start of continuous change-event sequence to the replay event
+    - Connected/Re-connected: from start of continuous change-event sequence to the replay event
     - Defined/Changed Cardinality: from start of continuous typing sequence to the replay event
     - Changed Data Type: from start of continuous typing sequence to the replay event
 - **`Pos (w,h)`**: Only for Created and Moved events, expressed as (width%, height%) from bottom-left corner
@@ -147,6 +147,19 @@ extract_link_endpoints <- function(details) {
   return(list(
     source = if (!is.null(source_id)) source_id else NA_character_,
     target = if (!is.null(target_id)) target_id else NA_character_
+  ))
+}
+
+# Helper function to extract link target position (x, y)
+extract_link_target_position <- function(details) {
+  if (is.null(details) || is.null(details$target)) {
+    return(list(x = NA_real_, y = NA_real_))
+  }
+  tx <- details$target$x
+  ty <- details$target$y
+  return(list(
+    x = if (!is.null(tx)) as.numeric(tx) else NA_real_,
+    y = if (!is.null(ty)) as.numeric(ty) else NA_real_
   ))
 }
 
@@ -278,7 +291,7 @@ create_interaction_log <- function(participant_data, participant_id) {
       element_datatype = extract_datatype(parsed_details)
     ) %>%
     ungroup()
-  
+
   # Generate interactions by comparing consecutive replay states
   interactions <- replay_events %>%
     group_by(Model.Element.ID) %>%
@@ -483,7 +496,8 @@ create_interaction_log <- function(participant_data, participant_id) {
       ) %>%
       ungroup()
     
-    # For each replay, check if there was data type typing activity since the previous replay
+    # For each replay, check if there was data type typing activity since the previous
+    # replay of the same UUID (or from log start if none exists).
     had_typing_flags <- sapply(seq_len(nrow(attribute_replays)), function(i) {
       replay <- attribute_replays[i, ]
       typing_events <- attribute_changes %>%
@@ -515,17 +529,14 @@ create_interaction_log <- function(participant_data, participant_id) {
     if (nrow(datatype_events) > 0) {
       datatype_durations <- sapply(seq_len(nrow(datatype_events)), function(i) {
         event <- datatype_events[i, ]
-        prev_ts <- event$prev_replay_ts
         
         relevant_changes <- attribute_changes %>%
           filter(Model.Element.ID == event$UUID, 
                  Timestamp < event$Timestamp,
                  is_datatype_typing == TRUE)
-        
-        if (!is.na(prev_ts)) {
-          relevant_changes <- relevant_changes %>% filter(Timestamp > prev_ts)
+        if (!is.na(event$prev_replay_ts)) {
+          relevant_changes <- relevant_changes %>% filter(Timestamp > event$prev_replay_ts)
         }
-        
         calculate_sequence_duration(relevant_changes$Timestamp, event$Timestamp, duration_gap_thresh)
       })
       
@@ -539,9 +550,9 @@ create_interaction_log <- function(participant_data, participant_id) {
              prev_datatype, element_datatype, original_order)
   }
   
-  # Get all raw events (non-replay) with parsed details for duration calculation
+  # Get raw change events (non-replay) with parsed details for duration calculation
   raw_events <- participant_data %>%
-    filter(Operation %in% c("add", "change", "move")) %>%
+    filter(Operation == "change") %>%
     arrange(Model.Element.ID, Timestamp)
   
   # Parse raw events to extract name, position, and datatype for comparison
@@ -558,19 +569,21 @@ create_interaction_log <- function(participant_data, participant_id) {
         raw_link_info = list(extract_link_endpoints(parsed_details)),
         raw_link_source = raw_link_info$source,
         raw_link_target = raw_link_info$target,
+        raw_link_target_pos = list(extract_link_target_position(parsed_details)),
+        raw_link_target_x = raw_link_target_pos$x,
+        raw_link_target_y = raw_link_target_pos$y,
         raw_datatype = extract_datatype(parsed_details)
       ) %>%
       ungroup() %>%
-      select(Model.Element.ID, Timestamp, Operation, raw_name, raw_pos_x, raw_pos_y, 
-             raw_parent, raw_link_source, raw_link_target, raw_datatype)
+      select(Model.Element.ID, Language.Concept, Timestamp, Operation, raw_name, raw_pos_x, raw_pos_y, 
+             raw_parent, raw_link_source, raw_link_target, raw_link_target_x, raw_link_target_y, raw_datatype)
   }
   
-  # For each interaction, find the first raw event that started the change
+  # Duration windows are bounded by the previous replay of the same UUID;
+  # if none exists, the window starts at log start.
   interactions <- interactions %>%
     group_by(Model.Element.ID) %>%
-    mutate(
-      prev_replay_timestamp = lag(Timestamp)
-    ) %>%
+    mutate(prev_replay_timestamp = lag(Timestamp)) %>%
     ungroup()
   
   # Apply duration calculation to each interaction
@@ -590,18 +603,20 @@ create_interaction_log <- function(participant_data, participant_id) {
         next
       }
       
-      # If no previous replay, can't calculate duration properly
+      # Get raw events for this element since previous replay of same UUID.
+      # If no previous replay exists, include all raw events up to replay timestamp.
       if (is.na(prev_replay_ts)) {
-        durations[i] <- 0
-        next
+        relevant_raw <- raw_events %>%
+          filter(Model.Element.ID == uuid,
+                 Timestamp <= replay_ts) %>%
+          arrange(Timestamp)
+      } else {
+        relevant_raw <- raw_events %>%
+          filter(Model.Element.ID == uuid,
+                 Timestamp > prev_replay_ts,
+                 Timestamp <= replay_ts) %>%
+          arrange(Timestamp)
       }
-      
-      # Get raw events for this element between previous replay and current replay
-      relevant_raw <- raw_events %>%
-        filter(Model.Element.ID == uuid,
-               Timestamp > prev_replay_ts,
-               Timestamp <= replay_ts) %>%
-        arrange(Timestamp)
       
       if (nrow(relevant_raw) == 0) {
         durations[i] <- 0
@@ -615,7 +630,7 @@ create_interaction_log <- function(participant_data, participant_id) {
         
       } else if (interaction_type == "Moved") {
         pos_ts <- relevant_raw %>% 
-          filter(!is.na(raw_pos_x) | !is.na(raw_pos_y) | Operation == "move") %>% 
+          filter(!is.na(raw_pos_x) | !is.na(raw_pos_y)) %>% 
           pull(Timestamp)
         durations[i] <- calculate_sequence_duration(pos_ts, replay_ts, duration_gap_thresh)
         
@@ -624,19 +639,20 @@ create_interaction_log <- function(participant_data, participant_id) {
         durations[i] <- calculate_sequence_duration(dt_ts, replay_ts, duration_gap_thresh)
         
       } else if (interaction_type %in% c("Assigned", "Unassigned", "Re-assigned")) {
-        durations[i] <- max(0, as.numeric(difftime(replay_ts, relevant_raw$Timestamp[1], units = "secs")))
+        rel_ts <- relevant_raw %>%
+          filter(!is.na(raw_pos_x) | !is.na(raw_pos_y)) %>%
+          pull(Timestamp)
+        durations[i] <- calculate_sequence_duration(rel_ts, replay_ts, duration_gap_thresh)
         
       } else if (interaction_type %in% c("Connected", "Re-connected")) {
-        link_events <- relevant_raw %>%
-          filter(!is.na(raw_link_source) | !is.na(raw_link_target))
-        if (nrow(link_events) > 0) {
-          durations[i] <- max(0, as.numeric(difftime(replay_ts, link_events$Timestamp[1], units = "secs")))
-        } else {
-          durations[i] <- 0
-        }
+        rel_ts <- relevant_raw %>%
+          filter(!is.na(raw_link_target_x) | !is.na(raw_link_target_y)) %>%
+          pull(Timestamp)
+        durations[i] <- calculate_sequence_duration(rel_ts, replay_ts, duration_gap_thresh)
         
       } else {
-        durations[i] <- max(0, as.numeric(difftime(replay_ts, relevant_raw$Timestamp[1], units = "secs")))
+        # No generic fallback to the first raw event
+        durations[i] <- 0
       }
     }
     
@@ -645,8 +661,6 @@ create_interaction_log <- function(participant_data, participant_id) {
     interactions <- interactions %>%
       mutate(`Duration (s)` = 0)
   }
-  
-  # Remove helper column
   interactions <- interactions %>%
     select(-prev_replay_timestamp)
   

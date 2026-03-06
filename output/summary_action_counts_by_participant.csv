@@ -1,13 +1,14 @@
-Interaction,P01,P02,P03,P04,P05,P06,P07,P08
-Assigned,13,11,9,11,11,9,14,11
-Changed Cardinality,1,0,4,1,0,4,2,0
-Changed Data Type,13,11,6,11,12,9,17,11
-Connected,5,8,7,5,6,4,6,6
-Connection aborted,1,0,0,0,0,0,0,0
-Created,20,18,16,18,18,14,25,18
-Defined Cardinality,4,6,6,5,6,4,6,6
-Deleted,2,0,2,1,0,0,6,0
-Disconnected,0,2,1,1,0,0,0,0
-Moved,21,32,35,26,25,7,54,11
-Named,20,18,15,16,17,14,21,18
-Renamed,2,5,2,0,5,1,7,0
+Interaction,P01,P02,P03,P04,P05,P06,P07,P08,Total
+Assigned,13,11,9,11,11,9,14,11,89
+Changed Cardinality,1,0,4,1,0,4,2,0,12
+Changed Data Type,13,11,6,11,12,9,17,11,90
+Connected,5,8,7,5,6,4,6,6,47
+Connection aborted,1,0,0,0,0,0,0,0,1
+Created,20,18,16,18,18,14,25,18,147
+Defined Cardinality,4,6,6,5,6,4,6,6,43
+Deleted,2,0,2,1,0,0,6,0,11
+Disconnected,0,2,1,1,0,0,0,0,4
+Moved,21,32,35,26,25,7,54,11,211
+Named,20,18,15,16,17,14,21,18,139
+Renamed,2,5,2,0,5,1,7,0,22
+Total,102,111,103,95,100,66,158,81,816

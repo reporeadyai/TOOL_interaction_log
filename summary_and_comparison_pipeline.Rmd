@@ -101,6 +101,19 @@ summarize_interaction_logs <- function(input_dir, output_dir = input_dir) {
     ) %>%
     arrange(.data$Interaction)
 
+  participant_count_cols <- setdiff(names(count_table), "Interaction")
+  count_table <- count_table %>%
+    mutate(Total = rowSums(across(all_of(participant_count_cols)), na.rm = TRUE))
+
+  total_row_counts <- count_table %>%
+    summarise(
+      Interaction = "Total",
+      across(all_of(participant_count_cols), ~ sum(.x, na.rm = TRUE)),
+      Total = sum(.data$Total, na.rm = TRUE)
+    )
+
+  count_table <- bind_rows(count_table, total_row_counts)
+
   mean_duration_table <- all_logs %>%
     mutate(`Duration (s)` = as.numeric(.data$`Duration (s)`)) %>%
     group_by(.data$Interaction, .data$Participant) %>%
@@ -152,15 +165,17 @@ create_comparison_tables <- function(base_dir = ".", out_dir = file.path(base_di
 
   read_count_summary <- function(path) read_csv(path, show_col_types = FALSE)
   read_duration_summary <- function(path) read_csv(path, show_col_types = FALSE)
-  participant_cols <- function(df) setdiff(names(df), "Interaction")
+  participant_cols <- function(df) setdiff(names(df), c("Interaction", "Total"))
 
   sum_by_participant <- function(df) {
+    df <- df %>% filter(.data$Interaction != "Total")
     cols <- participant_cols(df)
     out <- colSums(df[, cols, drop = FALSE], na.rm = TRUE)
     tibble(Participant = names(out), N = as.numeric(out))
   }
 
   sum_by_interaction <- function(df) {
+    df <- df %>% filter(.data$Interaction != "Total")
     cols <- participant_cols(df)
     df %>%
       group_by(.data$Interaction) %>%
